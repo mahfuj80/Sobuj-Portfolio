@@ -1,11 +1,12 @@
 /**
  * MD. ABU SUFIAN SOBUJ - PORTFOLIO INTERACTIVITY
- * Clean, Modular Vanilla JavaScript for GitHub Pages
+ * 100% Functional Vanilla JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initMobileDrawer();
+  initServicesLinks();
   initProjectsFilter();
   initProjectModal();
   initEstimator();
@@ -30,7 +31,6 @@ function initNavbar() {
     }
   }, { passive: true });
 
-  // Intersection Observer for Active Navigation
   const observerOptions = {
     root: null,
     rootMargin: '-20% 0px -70% 0px',
@@ -87,7 +87,27 @@ function initMobileDrawer() {
 }
 
 /* ==========================================================================
-   3. Portfolio Projects Filter
+   3. Services to Estimator Interactive Connector
+   ========================================================================== */
+function initServicesLinks() {
+  const serviceLinks = document.querySelectorAll('[data-service-calc]');
+  serviceLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.getAttribute('data-service-calc');
+      const radio = document.querySelector(`input[name="project_type"][value="${target}"]`);
+      if (radio) {
+        radio.checked = true;
+        const form = document.getElementById('estimatorForm');
+        if (form) form.dispatchEvent(new Event('change'));
+      }
+      document.getElementById('estimator')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+}
+
+/* ==========================================================================
+   4. Portfolio Projects Filter
    ========================================================================== */
 function initProjectsFilter() {
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -114,7 +134,7 @@ function initProjectsFilter() {
 }
 
 /* ==========================================================================
-   4. Project Details Modal
+   5. Project Details Modal
    ========================================================================== */
 const projectData = {
   saas: {
@@ -129,9 +149,7 @@ const projectData = {
       "Automated PDF report generation and scheduling",
       "Role-based access control (Admin, Manager, Analyst, Viewer)"
     ],
-    tech: ["React.js", "Node.js", "Express", "PostgreSQL", "Redis", "Docker", "TailwindCSS"],
-    demoUrl: "https://github.com/mahfuj80/Sobuj-Portfolio",
-    githubUrl: "https://github.com/mahfuj80/Sobuj-Portfolio"
+    tech: ["React.js", "Node.js", "Express", "PostgreSQL", "Redis", "Docker", "TailwindCSS"]
   },
   ecommerce: {
     title: "ApexMart - Headless E-Commerce & Global Checkout",
@@ -145,9 +163,7 @@ const projectData = {
       "Custom checkout funnel with abandoned cart email recovery",
       "Admin order dispatch and tracking portal"
     ],
-    tech: ["Next.js", "TypeScript", "Node.js", "Stripe API", "MongoDB", "Tailwind CSS"],
-    demoUrl: "https://github.com/mahfuj80/Sobuj-Portfolio",
-    githubUrl: "https://github.com/mahfuj80/Sobuj-Portfolio"
+    tech: ["Next.js", "TypeScript", "Node.js", "Stripe API", "MongoDB", "Tailwind CSS"]
   },
   crm: {
     title: "OmniCore - Custom Enterprise Resource Planning & CRM",
@@ -161,9 +177,7 @@ const projectData = {
       "Email & SMS notifications triggered by deal milestones",
       "RESTful API for syncing data with 3rd-party logistics & accounting"
     ],
-    tech: ["Python / Django", "React", "PostgreSQL", "Celery", "Redis", "Docker"],
-    demoUrl: "https://github.com/mahfuj80/Sobuj-Portfolio",
-    githubUrl: "https://github.com/mahfuj80/Sobuj-Portfolio"
+    tech: ["Python / Django", "React", "PostgreSQL", "Celery", "Redis", "Docker"]
   },
   fintech: {
     title: "VaultPay - Multi-Currency Payment Gateway & Webhook Hub",
@@ -177,9 +191,7 @@ const projectData = {
       "Automated reconciliations and PDF financial ledger generation",
       "Sandbox testing environment with mock transaction triggers"
     ],
-    tech: ["Node.js", "TypeScript", "Redis", "PostgreSQL", "Stripe API", "AWS Lambda"],
-    demoUrl: "https://github.com/mahfuj80/Sobuj-Portfolio",
-    githubUrl: "https://github.com/mahfuj80/Sobuj-Portfolio"
+    tech: ["Node.js", "TypeScript", "Redis", "PostgreSQL", "Stripe API", "AWS Lambda"]
   },
   healthcare: {
     title: "MedSync Pro - Clinic Management & Telehealth Portal",
@@ -193,9 +205,7 @@ const projectData = {
       "Automated SMS/WhatsApp appointment reminders",
       "Prescription generation with PDF download & pharmacy routing"
     ],
-    tech: ["React.js", "Node.js", "WebRTC", "PostgreSQL", "Socket.io", "AWS S3"],
-    demoUrl: "https://github.com/mahfuj80/Sobuj-Portfolio",
-    githubUrl: "https://github.com/mahfuj80/Sobuj-Portfolio"
+    tech: ["React.js", "Node.js", "WebRTC", "PostgreSQL", "Socket.io", "AWS S3"]
   },
   logistics: {
     title: "FleetTrack - Real-Time Logistics & Dispatch Platform",
@@ -209,9 +219,7 @@ const projectData = {
       "Driver mobile web dashboard for instant delivery sign-offs",
       "Exportable telematics reports for fuel and speed compliance"
     ],
-    tech: ["Vue.js", "Python / FastAPI", "PostGIS", "WebSockets", "Mapbox GL"],
-    demoUrl: "https://github.com/mahfuj80/Sobuj-Portfolio",
-    githubUrl: "https://github.com/mahfuj80/Sobuj-Portfolio"
+    tech: ["Vue.js", "Python / FastAPI", "PostGIS", "WebSockets", "Mapbox GL"]
   }
 };
 
@@ -251,9 +259,25 @@ function initProjectModal() {
       techContainer.appendChild(span);
     });
 
-    // Action button
-    const liveLink = document.getElementById('modalLiveLink');
-    if (liveLink) liveLink.href = data.demoUrl;
+    // Action buttons
+    const inquireBtn = document.getElementById('modalInquireBtn');
+    const modalWaBtn = document.getElementById('modalWaBtn');
+
+    if (inquireBtn) {
+      inquireBtn.onclick = () => {
+        closeModal();
+        const msgField = document.getElementById('contactMessage');
+        if (msgField) {
+          msgField.value = `Hello Md. Abu Sufian Sobuj, I saw your "${data.title}" project on your portfolio and would like to build a custom solution for my business.`;
+        }
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      };
+    }
+
+    if (modalWaBtn) {
+      const waText = encodeURIComponent(`Hello Md. Abu Sufian Sobuj, I saw your "${data.title}" project on your portfolio and would like to discuss building something similar.`);
+      modalWaBtn.href = `https://wa.me/8801540107844?text=${waText}`;
+    }
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -285,7 +309,7 @@ function initProjectModal() {
 }
 
 /* ==========================================================================
-   5. Interactive Project Estimator
+   6. Interactive Project Estimator
    ========================================================================== */
 function initEstimator() {
   const estimatorForm = document.getElementById('estimatorForm');
@@ -316,7 +340,6 @@ function initEstimator() {
     let maxCost = base.max;
     let timeline = base.time;
 
-    // Add selected features
     const checkedFeatures = estimatorForm.querySelectorAll('input[name="features"]:checked');
     checkedFeatures.forEach(box => {
       const cost = featureCosts[box.value] || 0;
@@ -324,14 +347,12 @@ function initEstimator() {
       maxCost += cost;
     });
 
-    // Speed multiplier
     if (selectedSpeed === 'express') {
       minCost = Math.round(minCost * 1.25);
       maxCost = Math.round(maxCost * 1.25);
       timeline = "⚡ Rush Delivery (Priority Sprint)";
     }
 
-    // Update UI elements
     const priceDisplay = document.getElementById('calcPriceDisplay');
     const timelineDisplay = document.getElementById('calcTimelineDisplay');
     const typeSummary = document.getElementById('calcTypeSummary');
@@ -356,11 +377,9 @@ function initEstimator() {
     return { selectedType, minCost, maxCost, timeline, checkedFeatures };
   }
 
-  // Bind change events
   estimatorForm.addEventListener('change', calculateEstimate);
-  calculateEstimate(); // initial run
+  calculateEstimate();
 
-  // WhatsApp Inquiry from Estimator
   const estimatorWaBtn = document.getElementById('estimatorWaBtn');
   if (estimatorWaBtn) {
     estimatorWaBtn.addEventListener('click', (e) => {
@@ -374,7 +393,7 @@ function initEstimator() {
         optimization: "Bug Fixing / Speed"
       };
 
-      const phone = "8801540107844"; // Verified WhatsApp number
+      const phone = "8801540107844";
       const text = encodeURIComponent(
         `Hello Md. Abu Sufian Sobuj,\n\n` +
         `I would like to discuss a project:\n` +
@@ -389,7 +408,6 @@ function initEstimator() {
     });
   }
 
-  // Pre-fill contact form button
   const estimatorFormBtn = document.getElementById('estimatorFormBtn');
   if (estimatorFormBtn) {
     estimatorFormBtn.addEventListener('click', (e) => {
@@ -416,7 +434,7 @@ function initEstimator() {
 }
 
 /* ==========================================================================
-   6. Proposal Pitch Copy Function
+   7. Proposal Pitch Copy Function
    ========================================================================== */
 function initProposalCopy() {
   const copyBtn = document.getElementById('copyProposalBtn');
@@ -446,7 +464,6 @@ If you have a project in mind—or even an idea that you would like to turn into
 Best regards,
 Md. Abu Sufian Sobuj
 Development Team Lead
-Portfolio: https://mahfuj80.github.io/Sobuj-Portfolio/
 Email: mdsobuj6926231@gmail.com
 WhatsApp / Phone: +880 1540-107844
 Facebook: https://www.facebook.com/mdsobuj6926231
@@ -474,60 +491,124 @@ Instagram: https://www.instagram.com/sobuj5789?stkn=MWNwOW9yZjNwd2xscw==`;
 }
 
 /* ==========================================================================
-   7. Contact Form Handler & Direct Actions
+   8. Fully Functional Contact Form with Live AJAX Delivery
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('portfolioContactForm');
   const directWaBtn = document.getElementById('directWaBtn');
+  const submitBtn = document.getElementById('contactSubmitBtn');
+  const btnText = document.getElementById('contactSubmitText');
+  const btnSpinner = document.getElementById('contactSubmitSpinner');
+  const btnIcon = document.getElementById('contactSubmitIcon');
+  const alertBox = document.getElementById('formAlertBox');
 
+  // Direct WhatsApp Button Handler
   if (directWaBtn) {
     directWaBtn.addEventListener('click', (e) => {
       e.preventDefault();
       const phone = "8801540107844";
-      const defaultMsg = encodeURIComponent("Hello Md. Abu Sufian Sobuj, I visited your portfolio and would like to discuss a project with your development team.");
-      window.open(`https://wa.me/${phone}?text=${defaultMsg}`, '_blank');
+      const name = document.getElementById('contactName')?.value.trim() || '';
+      const service = document.getElementById('serviceSelect')?.options[document.getElementById('serviceSelect')?.selectedIndex]?.text || 'Project';
+      const msg = document.getElementById('contactMessage')?.value.trim() || '';
+      
+      let defaultMsg = `Hello Md. Abu Sufian Sobuj, I visited your portfolio and would like to discuss a project.`;
+      if (name || msg) {
+        defaultMsg = `Hello Md. Abu Sufian Sobuj,\nMy Name: ${name || 'Client'}\nService: ${service}\nMessage: ${msg}`;
+      }
+      window.open(`https://wa.me/${phone}?text=${encodeURIComponent(defaultMsg)}`, '_blank');
       showToast("Opening WhatsApp chat...");
     });
   }
 
+  // Live AJAX Form Submission
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const name = document.getElementById('contactName')?.value.trim();
       const email = document.getElementById('contactEmail')?.value.trim();
-      const service = document.getElementById('serviceSelect')?.value;
+      const service = document.getElementById('serviceSelect')?.options[document.getElementById('serviceSelect')?.selectedIndex]?.text || '';
       const budget = document.getElementById('contactBudget')?.value.trim();
       const message = document.getElementById('contactMessage')?.value.trim();
 
       if (!name || !email || !message) {
+        if (alertBox) {
+          alertBox.style.display = 'block';
+          alertBox.style.background = 'rgba(239, 68, 68, 0.15)';
+          alertBox.style.border = '1px solid rgba(239, 68, 68, 0.4)';
+          alertBox.style.color = '#fca5a5';
+          alertBox.textContent = 'Please fill in all required fields (Name, Email, and Message).';
+        }
         showToast("Please fill in all required fields.");
         return;
       }
 
-      // Generate mailto link
-      const subject = encodeURIComponent(`Project Inquiry: ${service} from ${name}`);
-      const body = encodeURIComponent(
-        `Hi Md. Abu Sufian Sobuj,\n\n` +
-        `Name: ${name}\n` +
-        `Email: ${email}\n` +
-        `Service Needed: ${service}\n` +
-        `Budget Range: ${budget || 'Not specified'}\n\n` +
-        `Message:\n${message}\n\n` +
-        `Sent via Portfolio Website.`
-      );
+      // UI Loading State
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.style.display = 'none';
+      if (btnIcon) btnIcon.style.display = 'none';
+      if (btnSpinner) btnSpinner.style.display = 'inline';
 
-      // Open email client
-      window.location.href = `mailto:mdsobuj6926231@gmail.com?subject=${subject}&body=${body}`;
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/mdsobuj6926231@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            service: service,
+            budget: budget || 'Not specified',
+            message: message,
+            _subject: `New Project Inquiry from ${name} (${service})`
+          })
+        });
 
-      showToast("✓ Message generated! Opening your email client...");
-      form.reset();
+        const result = await response.json();
+
+        if (response.ok || result.success === "true" || result.success === true) {
+          if (alertBox) {
+            alertBox.style.display = 'block';
+            alertBox.style.background = 'rgba(16, 185, 129, 0.15)';
+            alertBox.style.border = '1px solid rgba(16, 185, 129, 0.4)';
+            alertBox.style.color = '#6ee7b7';
+            alertBox.innerHTML = `<strong>✓ Thank you, ${name}!</strong> Your message has been sent directly to Md. Abu Sufian Sobuj. We will get back to you shortly at <em>${email}</em>.`;
+          }
+          showToast("✓ Message delivered successfully!");
+          form.reset();
+        } else {
+          throw new Error("FormSubmit response not ok");
+        }
+      } catch (err) {
+        // Fallback to mailto so message is never lost
+        const subject = encodeURIComponent(`Project Inquiry: ${service} from ${name}`);
+        const body = encodeURIComponent(
+          `Hi Md. Abu Sufian Sobuj,\n\nName: ${name}\nEmail: ${email}\nService Needed: ${service}\nBudget Range: ${budget || 'Not specified'}\n\nMessage:\n${message}`
+        );
+        window.location.href = `mailto:mdsobuj6926231@gmail.com?subject=${subject}&body=${body}`;
+        
+        if (alertBox) {
+          alertBox.style.display = 'block';
+          alertBox.style.background = 'rgba(6, 182, 212, 0.15)';
+          alertBox.style.border = '1px solid rgba(6, 182, 212, 0.4)';
+          alertBox.style.color = '#7dd3fc';
+          alertBox.innerHTML = `Opened your email client with your message prepared. You can also chat directly on WhatsApp!`;
+        }
+        showToast("Opening email client fallback...");
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.style.display = 'inline';
+        if (btnIcon) btnIcon.style.display = 'inline';
+        if (btnSpinner) btnSpinner.style.display = 'none';
+      }
     });
   }
 }
 
 /* ==========================================================================
-   8. Back to Top Button
+   9. Back to Top Button
    ========================================================================== */
 function initBackToTop() {
   const backBtn = document.querySelector('.back-to-top');
@@ -550,7 +631,7 @@ function initBackToTop() {
 }
 
 /* ==========================================================================
-   9. Toast Notification System
+   10. Toast Notification System
    ========================================================================== */
 function showToast(message) {
   let container = document.querySelector('.toast-container');
