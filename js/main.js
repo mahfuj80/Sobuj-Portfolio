@@ -220,6 +220,34 @@ const projectData = {
       "Exportable telematics reports for fuel and speed compliance"
     ],
     tech: ["Vue.js", "Python / FastAPI", "PostGIS", "WebSockets", "Mapbox GL"]
+  },
+  mobileapp: {
+    title: "TaskPulse - Cross-Platform Mobile & Desktop Productivity Suite",
+    category: "Mobile & Cross-Platform App",
+    image: "assets/images/project-mobile-app.svg",
+    description: "A production-grade cross-platform application empowering distributed teams with offline-first synchronization, push notifications, and ultra-fast desktop and mobile native performance.",
+    features: [
+      "Native mobile experience for iOS & Android built with Flutter & Dart",
+      "Lightweight, secure cross-platform desktop client built with Tauri (macOS, Windows, Linux)",
+      "Offline SQLite cache with automated background cloud sync",
+      "Real-time event streaming and push notifications via WebSockets & FCM",
+      "Robust enterprise REST/GraphQL backend engineered with NestJS and PostgreSQL"
+    ],
+    tech: ["Flutter", "Dart", "Tauri", "NestJS", "TypeScript", "PostgreSQL", "SQLite"]
+  },
+  automation: {
+    title: "AutoFlow - n8n Enterprise Workflow Automation & Webhook Hub",
+    category: "Workflow Automation & API",
+    image: "assets/images/project-automation.svg",
+    description: "An automated workflow orchestration engine connecting CRM systems, payment gateways, messaging tools, and internal databases with zero manual data entry.",
+    features: [
+      "Complex multi-branch workflow orchestration powered by self-hosted n8n",
+      "Automated lead enrichment, deal assignment, and CRM synchronization",
+      "Real-time payment webhook processing (Stripe & PayPal) with error retry loops",
+      "Automated WhatsApp & Email notifications triggered by customer lifecycle events",
+      "Custom NestJS microservices handling cryptographic signature verification"
+    ],
+    tech: ["n8n", "NestJS", "Node.js", "TypeScript", "Stripe API", "WhatsApp API", "Redis"]
   }
 };
 
@@ -318,8 +346,10 @@ function initEstimator() {
   const basePrices = {
     website: { min: 250, max: 450, time: "3 - 5 days" },
     webapp: { min: 650, max: 1200, time: "2 - 3 weeks" },
+    mobileapp: { min: 800, max: 1600, time: "3 - 4 weeks" },
     software: { min: 950, max: 1800, time: "3 - 5 weeks" },
     ecommerce: { min: 450, max: 850, time: "1 - 2 weeks" },
+    automation: { min: 350, max: 750, time: "1 - 2 weeks" },
     optimization: { min: 180, max: 350, time: "2 - 4 days" }
   };
 
@@ -328,6 +358,9 @@ function initEstimator() {
     payment: 180,
     admin: 220,
     api: 150,
+    crossplatform: 250,
+    n8n: 180,
+    nestjs: 200,
     support: 100
   };
 
@@ -364,11 +397,13 @@ function initEstimator() {
       const typeLabels = {
         website: "Website Development",
         webapp: "Web Application / Portal",
+        mobileapp: "Mobile & Cross-Platform App (Flutter / Tauri)",
         software: "Custom Software / ERP",
         ecommerce: "E-Commerce Platform",
+        automation: "n8n Workflow Automation & NestJS API",
         optimization: "Bug Fixing & Speed Tuning"
       };
-      typeSummary.textContent = typeLabels[selectedType];
+      typeSummary.textContent = typeLabels[selectedType] || "Custom Project";
     }
     if (featuresCount) {
       featuresCount.textContent = `${checkedFeatures.length} Add-ons Selected`;
@@ -388,8 +423,10 @@ function initEstimator() {
       const typeNames = {
         website: "Website Development",
         webapp: "Web Application",
+        mobileapp: "Mobile & Cross-Platform App (Flutter/Tauri)",
         software: "Custom Software",
         ecommerce: "E-Commerce",
+        automation: "Workflow Automation (n8n/NestJS)",
         optimization: "Bug Fixing / Speed"
       };
 
@@ -397,7 +434,7 @@ function initEstimator() {
       const text = encodeURIComponent(
         `Hello Md. Abu Sufian Sobuj,\n\n` +
         `I would like to discuss a project:\n` +
-        `• Service: ${typeNames[est.selectedType]}\n` +
+        `• Service: ${typeNames[est.selectedType] || est.selectedType}\n` +
         `• Estimated Budget: $${est.minCost} - $${est.maxCost}\n` +
         `• Timeline: ${est.timeline}\n\n` +
         `Could we discuss the requirements and milestones?`
@@ -451,11 +488,13 @@ We are a dedicated team of developers specializing in building and improving dig
 
 *What we can help you with:*
 * Website & Web Application Development
-* Custom Software Development
+* Mobile & Cross-Platform App Development (Flutter, Dart & Tauri)
+* Custom Software & Enterprise ERP/CRM Systems
+* Enterprise Backend & Microservices (NestJS)
+* Workflow Automation & Third-Party API Integration (n8n)
 * E-commerce & Business Websites
-* API & Third-Party Integration
 * Bug Fixing & Performance Optimization
-* Website Maintenance & Technical Support
+* Website & App Maintenance & Technical Support
 
 Our approach is simple: understand your requirements, build the right solution, and provide reliable support when you need it.
 
