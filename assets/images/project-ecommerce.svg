@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="ecomBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="ecomAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <!-- Window Frame -->
+  <rect width="800" height="500" rx="16" fill="url(#ecomBg)" stroke="#1f2937" stroke-width="2"/>
+  
+  <!-- Browser Header -->
+  <rect width="800" height="48" rx="16" fill="#0b1120"/>
+  <rect y="36" width="800" height="12" fill="#0b1120"/>
+  <line x1="0" y1="48" x2="800" y2="48" stroke="#1f2937" stroke-width="1"/>
+  
+  <!-- Window Controls -->
+  <circle cx="28" cy="24" r="6" fill="#ef4444"/>
+  <circle cx="48" cy="24" r="6" fill="#f59e0b"/>
+  <circle cx="68" cy="24" r="6" fill="#10b981"/>
+
+  <!-- URL Bar -->
+  <rect x="110" y="12" width="400" height="24" rx="6" fill="#1e293b" opacity="0.8"/>
+  <text x="140" y="28" fill="#94a3b8" font-family="-apple-system, sans-serif" font-size="11">apexmart-store.com/shop/collections/featured</text>
+  
+  <rect x="650" y="14" width="120" height="20" rx="10" fill="#ec4899" fill-opacity="0.2" stroke="#ec4899" stroke-opacity="0.5"/>
+  <text x="710" y="28" fill="#f472b6" font-family="sans-serif" font-size="10" font-weight="600" text-anchor="middle">E-COMMERCE PRO</text>
+
+  <!-- Store Navbar -->
+  <rect x="24" y="64" width="752" height="52" rx="10" fill="#111827" stroke="#1f2937"/>
+  <circle cx="50" cy="90" r="12" fill="url(#ecomAccent)"/>
+  <text x="72" y="95" fill="#f9fafb" font-family="sans-serif" font-size="16" font-weight="800">APEX<tspan fill="#ec4899">MART</tspan></text>
+  
+  <!-- Navigation links -->
+  <text x="230" y="95" fill="#f3f4f6" font-family="sans-serif" font-size="12" font-weight="600">New Arrivals</text>
+  <text x="330" y="95" fill="#9ca3af" font-family="sans-serif" font-size="12">Electronics</text>
+  <text x="430" y="95" fill="#9ca3af" font-family="sans-serif" font-size="12">Accessories</text>
+  <text x="530" y="95" fill="#9ca3af" font-family="sans-serif" font-size="12">Global Deals</text>
+
+  <!-- Cart Button -->
+  <rect x="670" y="74" width="90" height="32" rx="8" fill="url(#ecomAccent)"/>
+  <text x="715" y="94" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="600" text-anchor="middle">Cart (3)</text>
+
+  <!-- Featured Banner -->
+  <g transform="translate(24, 130)">
+    <rect x="0" y="0" width="752" height="130" rx="12" fill="url(#cardGrad1)" stroke="#312e81" stroke-width="1"/>
+    <text x="32" y="44" fill="#ec4899" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="1">SUMMER TECH COLLECTION 2026</text>
+    <text x="32" y="76" fill="#f9fafb" font-family="sans-serif" font-size="22" font-weight="800">Ultra-Fast Headless Checkout &amp; Multi-Currency</text>
+    <text x="32" y="102" fill="#cbd5e1" font-family="sans-serif" font-size="12">Integrated with Stripe, PayPal &amp; Real-time Inventory Automation</text>
+    
+    <rect x="610" y="44" width="115" height="42" rx="8" fill="#10b981"/>
+    <text x="667" y="69" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="700" text-anchor="middle">Shop Now →</text>
+  </g>
+
+  <!-- Products Grid -->
+  <g transform="translate(24, 275)">
+    <!-- Product 1 -->
+    <rect x="0" y="0" width="235" height="200" rx="12" fill="#111827" stroke="#1f2937"/>
+    <rect x="12" y="12" width="211" height="96" rx="8" fill="#1f2937"/>
+    <!-- Mock graphic in product -->
+    <circle cx="117" cy="60" r="30" fill="#38bdf8" fill-opacity="0.2"/>
+    <rect x="95" y="45" width="44" height="30" rx="4" fill="#0284c7"/>
+    <text x="16" y="132" fill="#f9fafb" font-family="sans-serif" font-size="13" font-weight="600">Wireless Noise-Cancel Pro</text>
+    <text x="16" y="152" fill="#ec4899" font-family="sans-serif" font-size="15" font-weight="700">$249.00 <tspan fill="#64748b" font-size="11" text-decoration="line-through">$299</tspan></text>
+    <rect x="16" y="164" width="203" height="24" rx="6" fill="#1e293b"/>
+    <text x="117" y="180" fill="#cbd5e1" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">Add to Cart</text>
+
+    <!-- Product 2 -->
+    <rect x="258" y="0" width="235" height="200" rx="12" fill="#111827" stroke="#1f2937"/>
+    <rect x="270" y="12" width="211" height="96" rx="8" fill="#1f2937"/>
+    <circle cx="375" cy="60" r="30" fill="#a855f7" fill-opacity="0.2"/>
+    <circle cx="375" cy="60" r="20" fill="#8b5cf6"/>
+    <text x="274" y="132" fill="#f9fafb" font-family="sans-serif" font-size="13" font-weight="600">Smart Fitness Pulse Watch</text>
+    <text x="274" y="152" fill="#ec4899" font-family="sans-serif" font-size="15" font-weight="700">$189.00</text>
+    <rect x="274" y="164" width="203" height="24" rx="6" fill="#1e293b"/>
+    <text x="375" y="180" fill="#cbd5e1" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">Add to Cart</text>
+
+    <!-- Product 3 -->
+    <rect x="517" y="0" width="235" height="200" rx="12" fill="#111827" stroke="#1f2937"/>
+    <rect x="529" y="12" width="211" height="96" rx="8" fill="#1f2937"/>
+    <circle cx="634" cy="60" r="30" fill="#10b981" fill-opacity="0.2"/>
+    <rect x="612" y="45" width="44" height="30" rx="4" fill="#059669"/>
+    <text x="533" y="132" fill="#f9fafb" font-family="sans-serif" font-size="13" font-weight="600">4K Ultra Webcam Studio</text>
+    <text x="533" y="152" fill="#ec4899" font-family="sans-serif" font-size="15" font-weight="700">$129.00</text>
+    <rect x="533" y="164" width="203" height="24" rx="6" fill="#1e293b"/>
+    <text x="634" y="180" fill="#cbd5e1" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">Add to Cart</text>
+  </g>
+</svg>
