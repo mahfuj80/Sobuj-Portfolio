@@ -374,7 +374,7 @@ function initEstimator() {
         optimization: "Bug Fixing / Speed"
       };
 
-      const phone = "8801878809477"; // Placeholder WhatsApp number, can be updated anytime
+      const phone = "8801540107844"; // Verified WhatsApp number
       const text = encodeURIComponent(
         `Hello Md. Abu Sufian Sobuj,\n\n` +
         `I would like to discuss a project:\n` +
@@ -446,7 +446,11 @@ If you have a project in mind—or even an idea that you would like to turn into
 Best regards,
 Md. Abu Sufian Sobuj
 Development Team Lead
-Portfolio: https://mahfuj80.github.io/Sobuj-Portfolio/`;
+Portfolio: https://mahfuj80.github.io/Sobuj-Portfolio/
+Email: mdsobuj6926231@gmail.com
+WhatsApp / Phone: +880 1540-107844
+Facebook: https://www.facebook.com/mdsobuj6926231
+Instagram: https://www.instagram.com/sobuj5789?stkn=MWNwOW9yZjNwd2xscw==`;
 
   copyBtn.addEventListener('click', async () => {
     try {
@@ -479,7 +483,7 @@ function initContactForm() {
   if (directWaBtn) {
     directWaBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const phone = "8801878809477";
+      const phone = "8801540107844";
       const defaultMsg = encodeURIComponent("Hello Md. Abu Sufian Sobuj, I visited your portfolio and would like to discuss a project with your development team.");
       window.open(`https://wa.me/${phone}?text=${defaultMsg}`, '_blank');
       showToast("Opening WhatsApp chat...");
@@ -514,7 +518,7 @@ function initContactForm() {
       );
 
       // Open email client
-      window.location.href = `mailto:mdsobujhossain.dev@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:mdsobuj6926231@gmail.com?subject=${subject}&body=${body}`;
 
       showToast("✓ Message generated! Opening your email client...");
       form.reset();
