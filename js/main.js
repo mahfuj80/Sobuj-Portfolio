@@ -63,7 +63,7 @@ function initMobileDrawer() {
   const drawer = document.querySelector('.mobile-drawer');
   const backdrop = document.querySelector('.drawer-backdrop');
   const closeBtn = document.querySelector('.drawer-close');
-  const drawerLinks = document.querySelectorAll('.drawer-link');
+  const drawerLinks = document.querySelectorAll('.drawer-link, .mobile-drawer a');
 
   function openDrawer() {
     drawer.classList.add('open');
@@ -83,6 +83,12 @@ function initMobileDrawer() {
 
   drawerLinks.forEach(link => {
     link.addEventListener('click', closeDrawer);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
   });
 }
 
