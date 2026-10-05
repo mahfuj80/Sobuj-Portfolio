@@ -84,6 +84,8 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   color-scheme: dark;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
@@ -92,9 +94,15 @@ body {
   color: var(--text-secondary);
   line-height: 1.65;
   overflow-x: hidden;
+  max-width: 100%;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure smooth section scrolling with offset for fixed header */
+section[id] {
+  scroll-margin-top: 80px;
 }
 
 /* Background Ambient Lights */
@@ -600,7 +608,22 @@ ul {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.25rem;
+}
+
+.hero-social-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 2.75rem;
+}
+
+.hero-social-pills .badge {
+  text-transform: none;
+  font-size: 0.85rem;
+  padding: 0.42rem 0.85rem;
+  max-width: 100%;
 }
 
 /* Hero Stats */
@@ -652,9 +675,15 @@ ul {
 .hero-visual {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 30px 20px 45px 20px;
+}
+
+/* Value Proposition Badges under avatar on tablet/mobile */
+.hero-mobile-badges {
+  display: none;
 }
 
 .avatar-wrapper {
@@ -1651,15 +1680,25 @@ ul {
   flex-shrink: 0;
 }
 
+.qc-text {
+  min-width: 0;
+  flex: 1;
+}
+
 .qc-text h5 {
   font-size: 0.85rem;
   font-weight: 700;
   margin-bottom: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .qc-text p {
   font-size: 0.78rem;
   color: var(--text-muted);
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 /* Right: Form */
@@ -1813,6 +1852,13 @@ ul {
   color: var(--text-primary);
 }
 
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 /* ==========================================================================
    Toast Notifications
    ========================================================================== */
@@ -1963,32 +2009,56 @@ ul {
 }
 
 /* ==========================================================================
-   Responsive Breakpoints
+   Responsive Breakpoints System
+   Optimized for All Viewports: 320px - 1440px+
    ========================================================================== */
 
-/* Medium Desktops & Tablets Landscape */
+/* 1. Medium Desktops & Tablets Landscape (max-width: 1024px) */
 @media (max-width: 1024px) {
+  section[id] {
+    scroll-margin-top: 72px;
+  }
+
   .hero-section {
-    padding: 8rem 0 4.5rem 0;
+    padding: 7.5rem 0 4rem 0;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 3rem;
+    gap: 2.75rem;
   }
 
   .hero-subtitle {
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 1.75rem auto;
   }
 
   .hero-cta-group {
     justify-content: center;
   }
 
+  .hero-social-pills {
+    justify-content: center;
+  }
+
   .hero-stats {
     max-width: 640px;
     margin: 0 auto;
+  }
+
+  /* Floating badges are hidden on 1-column hero to prevent horizontal overflow */
+  .floating-badge {
+    display: none !important;
+  }
+
+  /* Centered pill row under avatar on tablets & mobile */
+  .hero-mobile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+    width: 100%;
   }
 
   .about-grid {
@@ -2003,6 +2073,10 @@ ul {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .tech-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .testimonials-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2012,6 +2086,12 @@ ul {
     gap: 2.5rem;
   }
 
+  .estimator-result {
+    position: static;
+    top: auto;
+    margin-top: 2rem;
+  }
+
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -2019,34 +2099,13 @@ ul {
 
   .footer-top {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
   }
 }
 
-/* Hide floating badges on tablet to prevent horizontal overflow */
+/* 2. Tablets in Portrait & Medium Screens (max-width: 960px) */
 @media (max-width: 960px) {
-  .floating-badge {
-    display: none;
-  }
-
-  .tech-categories {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Tablets and Mobile Landscape */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 1.25rem;
-  }
-
-  .site-header {
-    padding: 0.75rem 0;
-  }
-
-  .site-header.scrolled {
-    padding: 0.65rem 0;
-  }
-
+  /* Activate mobile toggle to keep header clean and prevent navigation overflow */
   .nav-menu, .header-cta-btn {
     display: none;
   }
@@ -2055,18 +2114,37 @@ ul {
     display: flex;
   }
 
+  .site-header {
+    padding: 0.85rem 0;
+  }
+
+  .site-header.scrolled {
+    padding: 0.7rem 0;
+  }
+}
+
+/* 3. Tablets Portrait, Phablets & Mobile Landscape (max-width: 768px) */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  section[id] {
+    scroll-margin-top: 65px;
+  }
+
   .hero-section {
-    padding: 6.5rem 0 3.5rem 0;
+    padding: 6.25rem 0 3.25rem 0;
   }
 
   .hero-title {
-    font-size: clamp(2rem, 5.8vw, 2.7rem);
+    font-size: clamp(1.9rem, 5.5vw, 2.6rem);
     letter-spacing: -0.5px;
   }
 
   .hero-stats {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 1.15rem;
     padding: 1.25rem;
   }
 
@@ -2088,6 +2166,10 @@ ul {
     padding-bottom: 0.75rem;
   }
 
+  .stat-number {
+    font-size: clamp(1.5rem, 5vw, 1.85rem);
+  }
+
   .about-section,
   .services-section,
   .portfolio-section,
@@ -2096,15 +2178,19 @@ ul {
   .tech-section,
   .testimonials-section,
   .contact-section {
-    padding: 4.5rem 0;
+    padding: 4.25rem 0;
   }
 
   .section-header {
     margin-bottom: 2.25rem;
   }
 
+  .section-title {
+    font-size: clamp(1.75rem, 4.5vw, 2.2rem);
+  }
+
   .section-desc {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
 
   .about-grid {
@@ -2116,9 +2202,13 @@ ul {
   }
 
   .about-quote-box::after {
-    font-size: 5.5rem;
+    font-size: 5rem;
     top: 5px;
     right: 15px;
+  }
+
+  .quote-text {
+    font-size: clamp(1.15rem, 3.8vw, 1.35rem);
   }
 
   .services-grid, .projects-grid {
@@ -2139,6 +2229,20 @@ ul {
 
   .workflow-steps {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .step-card {
+    padding: 1.4rem 1.15rem;
+  }
+
+  .tech-categories {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .tech-cat-card {
+    padding: 1.5rem 1.25rem;
   }
 
   .testimonials-grid {
@@ -2162,9 +2266,6 @@ ul {
   }
 
   .estimator-result {
-    position: static;
-    top: auto;
-    margin-top: 2rem;
     padding: 1.75rem 1.35rem;
   }
 
@@ -2176,13 +2277,7 @@ ul {
   }
 
   .hero-visual {
-    padding: 20px 0 40px 0;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    gap: 0.85rem;
-    text-align: center;
+    padding: 15px 0 35px 0;
   }
 
   .modal-window {
@@ -2192,21 +2287,23 @@ ul {
   }
 
   .modal-title {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
 
   .modal-actions {
     flex-direction: column;
+    width: 100%;
   }
 
   .modal-actions .btn {
     width: 100%;
+    justify-content: center;
   }
 
   .toast-container {
     left: 1rem;
     right: 1rem;
-    bottom: 1.25rem;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
     align-items: center;
   }
 
@@ -2218,15 +2315,40 @@ ul {
 
   .back-to-top {
     left: auto;
-    right: 20px;
-    bottom: 20px;
-    width: 42px;
-    height: 42px;
+    right: calc(18px + env(safe-area-inset-right, 0px));
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    width: 44px;
+    height: 44px;
+  }
+
+  .filter-tabs {
+    gap: 0.5rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 0.25rem 0.25rem 0.65rem 0.25rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    font-size: 0.84rem;
+    padding: 0.5rem 1.1rem;
+    min-height: 40px;
   }
 }
 
-/* Mobile Phones (Standard) */
+/* 4. Standard Mobile Phones (max-width: 600px) */
 @media (max-width: 600px) {
+  .hero-section {
+    padding: 5.75rem 0 3rem 0;
+  }
+
   .hero-cta-group {
     flex-direction: column;
     width: 100%;
@@ -2234,6 +2356,7 @@ ul {
 
   .hero-cta-group .btn {
     width: 100%;
+    justify-content: center;
   }
 
   .about-pillars {
@@ -2248,24 +2371,15 @@ ul {
     grid-template-columns: 1fr;
   }
 
-  .filter-tabs {
-    gap: 0.5rem;
-    justify-content: flex-start;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 0.6rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  .proposal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
   }
 
-  .filter-tabs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .filter-btn {
-    flex-shrink: 0;
-    font-size: 0.82rem;
-    padding: 0.45rem 1rem;
+  .proposal-header #copyProposalBtn {
+    width: 100%;
+    justify-content: center;
   }
 
   .calc-options-grid {
@@ -2277,28 +2391,133 @@ ul {
   }
 
   .result-price {
-    font-size: clamp(2rem, 8vw, 2.5rem);
+    font-size: clamp(1.75rem, 6.5vw, 2.3rem);
   }
 
   .footer-top {
     grid-template-columns: 1fr;
     gap: 2.25rem;
   }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.85rem;
+    text-align: center;
+  }
 }
 
-/* Small Phones (iPhone SE, Galaxy A, 320px - 380px) */
-@media (max-width: 380px) {
+/* 5. Mobile Narrow & Smaller Screens (max-width: 480px) */
+@media (max-width: 480px) {
   .container {
-    padding: 0 0.85rem;
+    padding: 0 1rem;
   }
 
   .hero-title {
-    font-size: 1.85rem;
+    font-size: clamp(1.75rem, 6.8vw, 2.15rem);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .about-section,
+  .services-section,
+  .portfolio-section,
+  .estimator-section,
+  .workflow-section,
+  .tech-section,
+  .testimonials-section,
+  .contact-section {
+    padding: 3.5rem 0;
+  }
+
+  .section-title {
+    font-size: 1.65rem;
+  }
+
+  .project-links {
+    flex-direction: column;
+  }
+
+  .project-links .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .estimator-card, .contact-form-card, .proposal-box, .estimator-result {
+    padding: 1.4rem 1.05rem;
+  }
+
+  .service-card {
+    padding: 1.4rem 1.05rem;
+  }
+
+  .tech-cat-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .testimonial-card {
+    padding: 1.4rem 1.05rem;
+  }
+
+  .pillar-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .step-card {
+    padding: 1.25rem 1rem;
+  }
+
+  .pitch-content {
+    padding: 1.1rem 0.9rem;
+    font-size: 0.88rem;
+  }
+
+  .avatar-wrapper {
+    width: min(260px, 80vw);
+    max-width: 260px;
+  }
+
+  .avatar-bottom-card {
+    padding: 0.65rem 0.75rem;
+    gap: 0.65rem;
+  }
+
+  .avatar-overlay-text h4 {
+    font-size: 0.85rem;
+  }
+
+  .avatar-overlay-text p {
+    font-size: 0.7rem;
+  }
+}
+
+/* 6. Ultra-Compact Phones (iPhone SE, Galaxy Fold folded, 320px - 380px) */
+@media (max-width: 380px) {
+  .container {
+    padding: 0 0.8rem;
+  }
+
+  .brand-logo {
+    font-size: 1.2rem;
+    gap: 0.5rem;
+  }
+
+  .brand-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 1.1rem;
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
   }
 
   .hero-stats {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
+    gap: 0.75rem;
+    padding: 1rem;
   }
 
   .stat-item:nth-child(1),
@@ -2306,7 +2525,7 @@ ul {
   .stat-item:nth-child(3) {
     border-right: none;
     border-bottom: 1px solid var(--border-subtle);
-    padding: 0 0 0.75rem 0;
+    padding: 0 0 0.65rem 0;
   }
 
   .stat-item:nth-child(4) {
@@ -2320,35 +2539,39 @@ ul {
   }
 
   .estimator-card, .contact-form-card, .proposal-box, .estimator-result {
-    padding: 1.25rem 0.95rem;
+    padding: 1.15rem 0.85rem;
   }
 
   .avatar-wrapper {
-    max-width: 250px;
+    max-width: 230px;
   }
 
   .avatar-bottom-card {
-    padding: 0.6rem 0.75rem;
-    gap: 0.55rem;
-    bottom: -18px;
+    padding: 0.55rem 0.65rem;
+    gap: 0.5rem;
+    bottom: -15px;
   }
 
   .avatar-overlay-icon {
-    width: 30px;
-    height: 30px;
-    font-size: 0.95rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
   }
 
   .avatar-overlay-text h4 {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
   }
 
   .avatar-overlay-text p {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
   }
 
   .btn {
-    padding: 0.75rem 1.1rem;
+    padding: 0.75rem 1rem;
     font-size: 0.88rem;
+  }
+
+  .result-price {
+    font-size: 1.6rem;
   }
 }

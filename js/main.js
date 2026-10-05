@@ -68,16 +68,23 @@ function initMobileDrawer() {
   function openDrawer() {
     drawer.classList.add('open');
     backdrop.classList.add('active');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   }
 
   function closeDrawer() {
     drawer.classList.remove('open');
     backdrop.classList.remove('active');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
   }
 
-  if (toggleBtn) toggleBtn.addEventListener('click', openDrawer);
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-expanded', 'false');
+    toggleBtn.addEventListener('click', openDrawer);
+  }
   if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
   if (backdrop) backdrop.addEventListener('click', closeDrawer);
 
@@ -319,6 +326,7 @@ function initProjectModal() {
 
   function closeModal() {
     modal.classList.remove('active');
+    document.documentElement.style.overflow = '';
     document.body.style.overflow = '';
   }
 
@@ -331,6 +339,9 @@ function initProjectModal() {
   });
 
   if (modalClose) modalClose.addEventListener('click', closeModal);
+  const modalCloseAction = document.getElementById('modalCloseActionBtn');
+  if (modalCloseAction) modalCloseAction.addEventListener('click', closeModal);
+
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
   });
